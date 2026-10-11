@@ -15,20 +15,16 @@ class Sound {
 
 enum SoundGroup { nature, noise }
 
+// Version 1 ships only the real recordings and the noises. Rain on roof,
+// thunderstorm, ocean waves, fireplace, night crickets, fan and heartbeat
+// come back once real recordings replace the synthesized drafts.
 const sounds = <Sound>[
   Sound('rain', 'Rain', SoundGroup.nature),
-  Sound('rain_on_roof', 'Rain on roof', SoundGroup.nature),
-  Sound('thunderstorm', 'Thunderstorm', SoundGroup.nature),
-  Sound('ocean_waves', 'Ocean waves', SoundGroup.nature),
   Sound('stream', 'Stream', SoundGroup.nature),
   Sound('wind', 'Wind', SoundGroup.nature),
-  Sound('fireplace', 'Fireplace', SoundGroup.nature),
-  Sound('night_crickets', 'Night crickets', SoundGroup.nature),
   Sound('white_noise', 'White noise', SoundGroup.noise),
   Sound('pink_noise', 'Pink noise', SoundGroup.noise),
   Sound('brown_noise', 'Brown noise', SoundGroup.noise),
-  Sound('fan', 'Fan', SoundGroup.noise),
-  Sound('heartbeat', 'Heartbeat', SoundGroup.noise),
 ];
 
 Sound soundById(String id) => sounds.firstWhere((s) => s.id == id);
@@ -49,9 +45,9 @@ class Mix {
 }
 
 const presets = <Mix>[
-  Mix('Rainy night', {'rain_on_roof': 0.8, 'fireplace': 0.45}),
-  Mix('Seaside', {'ocean_waves': 0.9, 'wind': 0.25}),
-  Mix('Mountain cabin', {'fireplace': 0.8, 'wind': 0.5, 'rain': 0.25}),
-  Mix('Summer evening', {'night_crickets': 0.8, 'stream': 0.4}),
-  Mix('For baby', {'heartbeat': 0.7, 'pink_noise': 0.35}),
+  Mix('Rainy night', {'rain': 0.8, 'brown_noise': 0.3}),
+  Mix('Forest creek', {'stream': 0.8, 'wind': 0.25}),
+  Mix('Stormy evening', {'wind': 0.7, 'rain': 0.5}),
+  Mix('Deep focus', {'brown_noise': 0.7, 'stream': 0.2}),
+  Mix('For baby', {'white_noise': 0.5, 'rain': 0.2}),
 ];

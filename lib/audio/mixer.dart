@@ -125,6 +125,8 @@ class Mixer extends ChangeNotifier {
       if (!mix.volumes.containsKey(id)) await turnOff(id);
     }
     for (final entry in mix.volumes.entries) {
+      // a saved mix may name a sound this version doesn't ship
+      if (!sounds.any((s) => s.id == entry.key)) continue;
       if (isOn(entry.key)) {
         setVolume(entry.key, entry.value);
       } else {

@@ -31,11 +31,11 @@ void main() {
     await tester.pumpWidget(MoonhushApp(mixer: mixer, store: MixStore()));
     await tester.pumpAndSettle();
 
-    await tester.scrollUntilVisible(find.byKey(const Key('tile-fireplace')), 200,
+    await tester.scrollUntilVisible(find.byKey(const Key('tile-brown_noise')), 200,
         scrollable: find.byType(Scrollable).first);
-    await tester.ensureVisible(find.byKey(const Key('tile-fireplace')));
+    await tester.ensureVisible(find.byKey(const Key('tile-brown_noise')));
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('tile-fireplace')));
+    await tester.tap(find.byKey(const Key('tile-brown_noise')));
     await tester.pump(const Duration(seconds: 2));
     await tester.tap(find.byTooltip('Save mix'));
     await tester.pumpAndSettle();
@@ -47,7 +47,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Cabin'), findsOneWidget);
     final saved = await MixStore().load();
-    expect(saved.single.volumes, {'fireplace': 0.6});
+    expect(saved.single.volumes, {'brown_noise': 0.6});
 
     mixer.dispose();
   });

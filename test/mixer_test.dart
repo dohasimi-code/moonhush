@@ -36,10 +36,10 @@ void main() {
     fakeAsync((async) {
       mixer.turnOn('white_noise');
       async.elapse(const Duration(seconds: 2));
-      mixer.applyMix(presets.first); // Rainy night: rain_on_roof + fireplace
+      mixer.applyMix(presets.first); // Rainy night: rain + brown_noise
       async.elapse(const Duration(seconds: 2));
-      expect(mixer.activeIds.toSet(), {'rain_on_roof', 'fireplace'});
-      expect(playerFor('fireplace').volume, closeTo(0.45, 1e-9));
+      expect(mixer.activeIds.toSet(), {'rain', 'brown_noise'});
+      expect(playerFor('brown_noise').volume, closeTo(0.3, 1e-9));
       expect(playerFor('white_noise').disposed, isTrue);
     });
   });
@@ -47,9 +47,9 @@ void main() {
   test('sleep timer fades out over the last 30 seconds, then stops', () {
     fakeAsync((async) {
       mixer.setSleepTimer(const Duration(minutes: 2));
-      mixer.turnOn('ocean_waves', volume: 1);
+      mixer.turnOn('stream', volume: 1);
       async.elapse(const Duration(seconds: 85));
-      final waves = playerFor('ocean_waves');
+      final waves = playerFor('stream');
       expect(waves.volume, closeTo(1, 1e-9));
       expect(mixer.sleepRemaining, const Duration(seconds: 35));
 
@@ -66,18 +66,18 @@ void main() {
 
   test('pause and resume keep the same sounds', () {
     fakeAsync((async) {
-      mixer.turnOn('fan');
+      mixer.turnOn('wind');
       async.elapse(const Duration(seconds: 2));
       mixer.pause();
       async.elapse(const Duration(seconds: 1));
       expect(mixer.isPaused, isTrue);
-      expect(playerFor('fan').playing, isFalse);
+      expect(playerFor('wind').playing, isFalse);
 
       mixer.resume();
       async.elapse(const Duration(seconds: 1));
       expect(mixer.isPlaying, isTrue);
-      expect(playerFor('fan').playing, isTrue);
-      expect(playerFor('fan').volume, closeTo(0.6, 1e-9));
+      expect(playerFor('wind').playing, isTrue);
+      expect(playerFor('wind').volume, closeTo(0.6, 1e-9));
     });
   });
 
