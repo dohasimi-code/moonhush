@@ -29,7 +29,7 @@ jobs:
           set -o pipefail
           if ! flutter build apk --release 2>&1 | tee build.log; then
             # surface the failure as an annotation, readable without log access
-            msg=$(grep -E "error|Error|FAILURE|What went wrong|wrong:|Caused by|requires|> " build.log | tail -40 | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
+            msg=$( (grep -E "^e: |error:|Error:" build.log | head -15; grep -A 25 "What went wrong" build.log | head -60) | cut -c1-300 | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}')
             echo "::error title=APK build failed::$msg"
             exit 1
           fi
